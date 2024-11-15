@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <script>
+    function validateForm() {
+      const maxe = document.forms["carForm"]["maxe"].value;
+      const name = document.forms["carForm"]["name"].value;
+      const price = document.forms["carForm"]["price"].value;
+      const year = document.forms["carForm"]["year"].value;
+      const brand = document.forms["carForm"]["brand"].value;
+
+      let errors = [];
+
+      if (!maxe || !name || !price || !year || !brand) {
+        errors.push("Vui lòng điền tất cả các trường.");
+      }
+      if (!/^[a-zA-Z\s]+$/.test(name)) {
+        errors.push("Tên phải là chữ cái.");
+      }
+      if (isNaN(price) || price <= 0) {
+        errors.push("Giá phải là số dương.");
+      }
+      if (isNaN(year) || year < 1980 || year > 2024) {
+        errors.push("Năm phải từ 1980 đến 2024.");
+      }
+
+      if (errors.length > 0) {
+        alert(errors.join("\n"));
+        return false;
+      }
+      return true;
+    }
+  </script>
+</head>
+<body>
+<h1><%= title %></h1>
+<form name="carForm" action="/submit" method="POST" onsubmit="return validateForm()">
+  <label for="maxe">MaXe:</label>
+  <input type="text" name="maxe" required><br>
+
+  <label for="name">Name:</label>
+  <input type="text" name="name" required><br>
+
+  <label for="price">Price:</label>
+  <input type="number" name="price" required><br>
+
+  <label for="year">Year:</label>
+  <input type="number" name="year" required><br>
+
+  <label for="brand">Brand:</label>
+  <input type="text" name="brand" required><br>
+
+  <button type="submit">Gửi</button>
+</form>
+</body>
+</html>
